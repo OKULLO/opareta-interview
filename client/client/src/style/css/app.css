@@ -1,0 +1,230 @@
+/* start of variables */
+:root {
+  --color: rgba(255, 0, 0, 0.76);
+  --theme-color: rgb(0, 102, 255);
+  --theme-primary: #3FAC09;
+  --theme-secondary: #0B1Db6;
+}
+/* end of variables */
+@font-face {
+    /* font-family: Roboto;
+    src: url('../fonts/Roboto-Regular.ttf'); */
+    font-family: Montserrat;
+    src: url('../fonts/Montserrat-Regular.ttf');
+}
+
+html, body, .daterangepicker, select {
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Montserrat', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.client_content_side {
+  height: 100%;
+  /* overflow-y: auto; */
+  margin-left: 25%; /* Same as the width of the sidenav */
+}
+
+.client_side_menu {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 25%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding: 0;
+  background-color: var(--theme-secondary);
+  word-wrap: break-word;
+}
+
+.menu_btn:hover, .menu_btn:active {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid white;
+}
+
+.nav-link, .nav-link:hover, .nav-link:active,
+.navbar-brand, .navbar-brand:active, .navbar-brand:hover,
+.dropdown-item {
+  color: #fff;
+}
+
+.japalendo{
+  background-image: url("../../assets/img/page_img/sms3.jpg");
+  background-repeat: no-repeat;
+  background-size:cover;
+  height: 550px;
+}
+
+.jambo_text {
+  font-weight: 600;
+}
+
+input[type=text],
+input[type=tel],
+input[type=password],
+input[type=number],
+input[type=file],
+.form-control,
+.custom-select,
+option,
+.select_option,
+textarea {
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Montserrat', sans-serif;
+}
+
+#pandora_sms_services, #contact_pandora_sms {
+  background-color: #f5f5f5;
+}
+
+.dropdown-item:hover, .dropdown-item:active {
+  color: #fff;
+}
+
+.alerto, label, .footer, .client_name_avator {
+  font-size: 80%;
+}
+
+.page_text { font-size: 90%;}
+
+.footer {
+  background-color: #f5f5f5;
+}
+
+.theme-primary, .theme-primary:hover {
+  background-color: var(--theme-primary);
+  color: white;
+}
+
+.text_secondary, .text_secondary:hover, .text_secondary:active{
+  color: var(--theme-secondary);
+}
+
+.theme-secondary, .theme-secondary:hover {
+  background-color: var(--theme-secondary);
+  color: white;
+}
+
+/* .hambugger_menu_btn {
+  border: 1px solid var(--theme-secondary);
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: rgb(255, 255, 255);
+} */
+
+.contact_shell {
+  border: 1px solid rgb(177, 176, 176);
+  border-radius: 5px;
+  font-size: small;
+  padding-bottom: 10px;
+}
+
+.round_btn {
+  border-radius: 25px;
+}
+
+.collapse_btn{
+  -ms-transform: rotate(0deg); /* IE 9 */
+  -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
+  transform: rotate(0deg);
+}
+.rotated{
+  -ms-transform: rotate(180deg); /* IE 9 */
+  -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+  transform: rotate(180deg);
+}
+
+.dropdown-item, .dataTables_info, .dataTables_paginate, .pagination, .editSubheader, table, .nav-link, .btn, .card-subheader, .form-control, .breadcrumb-item {
+  font-size: 85%;
+}
+
+.capitalize_text {
+  text-transform: capitalize;
+}
+
+.hodo:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  text-transform: capitalize;
+}
+
+.footer_title {
+  font-weight: 500;
+}
+
+/* contacts manager */
+/* .contact_display {
+  position: fixed;
+} */
+
+
+code {
+  display: block;
+  white-space: pre-wrap;
+}
+
+.fw-600{font-weight: 600;}
+
+.tile_text{font-size: 170%;}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media only screen and (min-width: 320px) and (max-width: 767px) and (orientation:portrait) {
+  .client_content_side {
+    position:absolute;
+    padding:0 !important;
+    margin:0 !important;
+    top:0;
+    left:0;
+    min-width: 100%;
+    height: 100%;
+  }
+}
+
+@media only screen and (min-width: 300px) and (max-width: 767px) and (orientation:landscape) {
+  .client_content_side {
+    position:absolute;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation:portrait) {
+  .client_content_side {
+    position:absolute;
+    padding:0;
+    margin:0;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 1024px) {
+
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1440px) and (max-width: 2560px) and (orientation:portrait) {
+
+}
