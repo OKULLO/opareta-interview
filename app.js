@@ -3,21 +3,17 @@ const morgan  = require('morgan');
 const dotenv = require('dotenv');
 const bodyparser = require('body-parser');
 const cors = require('cors');
-const id = require('./controllers/functions')
 
-const db = require('./models/dbConfig');
 
-const documents = require('./routes/documents');
-const auth = require('./routes/auth');
-const admin = require('./routes/admin');
 dotenv.config({path:'./config/.env'});
+
+const proxy = require('./routes/proxy');
 
 const app = express();
 
-id.random_id();
-
 app.use(express.json());
 app.use(bodyparser.urlencoded({extended: false}));
+app.set('trust proxy', 1)
 
 app.use(morgan('common'));
 app.use(cors({
@@ -27,10 +23,7 @@ app.use(cors({
 const PORT = process.env.PORT || 3377;
 
 
-app.use('/api/documents',documents);
-app.use('/auth',auth);
-app.use('/api/administrators',admin);
-
+app.use('/proxy',proxy);
 
 
 //return original url where error occured
@@ -39,12 +32,6 @@ app.use((req,res,next)=>{
    res.status(404);
     next(error);
 });
-
-
-db.sequelize.sync()
-     .then(()=>console.log('database connection sucessfull'))
-      .catch(err=>console.log(`ConnectionError:${err}`))
-
 
 
 //error handler middleware
