@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+
 
 
 class Crypto extends React.Component {
@@ -10,7 +10,7 @@ class Crypto extends React.Component {
       result: null,
       Currency: this.toCurrency,
       toCrypto: this.fromCurrency,
-      amount: 1,
+      amount: null,
       currencies: [],
       crypto:[]
     };
@@ -45,7 +45,7 @@ class Crypto extends React.Component {
           cryptoAr.push(res.data[key].name);
         }
         this.setState({ crypto: cryptoAr });
-      });
+      }).catch(e=>console.log(e));
 
   }
 
@@ -61,8 +61,8 @@ class Crypto extends React.Component {
           }
               )
         .then(response => {
-          const result =
-          this.state.amount * response.data.rate;
+
+          const result = response.data.quote.price
           this.setState({ result: result.toFixed(5) });
         })
         .catch(error => {
@@ -86,7 +86,8 @@ class Crypto extends React.Component {
   render() {
 
     return (
-      <div className="container py-4 ">
+
+    <div className="container py-4 ">
     <div className='row wid px-5 justify-content-center'>
     <div className="bg-light">
 
