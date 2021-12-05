@@ -8,77 +8,84 @@ class Crypto extends React.Component {
     this.state = {
 
       result: null,
-      Currency: this.toCurrency,
-      toCrypto: this.fromCurrency,
+      Currency: 'USD',
+      Cryptovalue:'BTC',
       amount: null,
       currencies: [],
       crypto:[]
     };
   }
+
   componentDidMount() {
             
-           const requestOptions = {
-              method: 'GET',
-              headers: { 'Content-Type': 'application/json' },
-          };
-
-    
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    };
+ 
     fetch("http://localhost:3377/proxy/get_currency",requestOptions)
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.data)
+
         const currencyAr = ["USD"];
         for (const key in res.data) {
 
-          currencyAr.push(res.data[key].name);
+          currencyAr.push(res.data[key]);
         }
         this.setState({ currencies: currencyAr });
       });
 
-
-      fetch("http://localhost:3377/proxy/get_crypto",requestOptions)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.data)
-        const cryptoAr = ["BTC"];
-        for (const key in res.data) {
-          cryptoAr.push(res.data[key].name);
-        }
-        this.setState({ crypto: cryptoAr });
-      }).catch(e=>console.log(e));
+    fetch("http://localhost:3377/proxy/crypto",requestOptions)
+        .then((res) => res.json())
+        .then((res) => {
+          const cryptoAr = ["BTC"];
+          for (const key in res.data) {
+            cryptoAr.push(res.data[key]);
+          }
+          this.setState({ crypto: cryptoAr });
+        }).catch(e=>console.log(e));
 
   }
 
+
   //handles conversion 
-  convertHandler = () => {
+  convertHandler = (e) => {
+    e.preventDefault();
 
-    if (this.state.fromCurrency !== this.state.toCurrency) {
+    // if (this.state.fromCurrency===null || this.state.toCurrency===null) {
+
+       const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    };
+     // Secure your API Key by routing calls through your own backend service.
+     //proxy requests to the api->http://localhost:3377
       fetch(
-          `"http://localhost:3377/proxy/convert"`,{
-            convert: this.state.toCurrency,
-            
+          "http://localhost:3377/proxy/convert?"+ new URLSearchParams({
+            convert:this.state.Cryptovalue,
+            id:this.state.currency,
+                    
             amount: this.state.amount,
-          }
-              )
+        }),requestOptions)
+        .then((res) => res.json())
         .then(response => {
-
-          const result = response.data.quote.price
-          this.setState({ result: result.toFixed(5) });
+          console.log(response.data)
+          this.setState({ result: `${response.data.amount } ${response.data.name}(${response.data.symbol}) = ${response.data.quote[this.state.Cryptovalue].price.toFixed(6)} ${this.state.Cryptovalue}` });
         })
         .catch(error => {
           console.log("Opps", error.message);
         });
-    } else {
-      this.setState({ result: "You cant convert the same currency!" });
-    }
+    // } else {
+    //   this.setState({ result: "Please choose a field to convert!" });
+    // }
   };
 
-  selectHandler = event => {
-    if (event.target.name === "from") {
-      this.setState({ fromCurrency: event.target.value });
+  selectHandler = e => {
+    if (e.target.name === "from") {
+      this.setState({ currency: e.target.value });
     } else {
-      if (event.target.name === "to") {
-        this.setState({ toCurrency: event.target.value });
+      if (e.target.name === "to") {
+        this.setState({ Cryptovalue: e.target.value });
       }
     }
   };
@@ -107,11 +114,11 @@ class Crypto extends React.Component {
             <div className="col-5">
                <select className="form-select"
                 name="from"
-                onChange={event => this.selectHandler(event)}
-                value={this.state.fromCurrency}
+                onChange={e => this.selectHandler(e)}
+                value={this.state.currency}
               >
                 {this.state.currencies.map(cur => (
-                  <option key={cur}>{cur}</option>
+                  <option value={cur.id}>{cur.name}</option>
                 ))}
           </select>
             </div>
@@ -122,11 +129,11 @@ class Crypto extends React.Component {
             <div className="col-5">
                <select className="form-select"
                 name="to"
-                onChange={event => this.selectHandler(event)}
-                value={this.state.toCurrency}
+                onChange={e => this.selectHandler(e)}
+                value={this.state.Cryptovalue}
               >
                 {this.state.crypto.map(c => (
-                  <option key={c}>{c}</option>
+                  <option key={c.id} value={c.symbol}>{c.name}</option>
                 ))}
           </select>
             </div>

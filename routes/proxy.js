@@ -6,10 +6,6 @@ const rp = require('request-promise');
 const router = express.Router();
 
 
-
-const KEY_NAME = process.env.KEY_NAME
-
-
 // get fiat currencies
 
 router
@@ -33,7 +29,7 @@ router
         gzip: true
       };
 
-      rp(requestOptions).then(response => {
+      await rp(requestOptions).then(response => {
         return res.status(200).json({
           data:response.data
         })
@@ -71,7 +67,7 @@ router
         gzip: true
       };
 
-      rp(requestOptions).then(response => {
+      await rp(requestOptions).then(response => {
 
         return res.status(200).json({
           data:response.data
@@ -90,14 +86,16 @@ router
   //--------------------------convert between currencies
   router.get('/convert',async(req, res, next)=>{
       try {
+      console.log(req.query)
 
       const requestOptions = {
+
         method: 'GET',
         uri: 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion',
         qs: {
-          ' amount': req.params.amount,
-          ' symbol': req.params.symbol,
-          'convert': req.params.convert
+          'amount':req.query.amount,
+          'id': req.query.id,
+          'convert':req.query.convert
         },
 
         headers: {
@@ -107,7 +105,8 @@ router
         gzip: true
       };
 
-      rp(requestOptions).then(response => {
+      await rp(requestOptions).then(response => {
+        // console.log(response.data)
         return res.status(200).json({
           data:response.data
         })
