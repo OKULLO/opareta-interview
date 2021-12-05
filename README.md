@@ -12,4 +12,6 @@ clone repository
  `npm install` for dev dependencies
  `npm start` to run client app
 
+ ![Results](files/results.png)
+
  
