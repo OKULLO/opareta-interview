@@ -1,4 +1,4 @@
-# opareta-interview
+# Swap between different currencies
 An app that converts cryptocurrencies into fiat ,
 
 consists of a simple node proxy server and react frontend
