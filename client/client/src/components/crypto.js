@@ -83,9 +83,11 @@ class Crypto extends React.Component {
   selectHandler = e => {
     if (e.target.name === "from") {
       this.setState({ currency: e.target.value });
+      this.convertHandler(e)
     } else {
       if (e.target.name === "to") {
         this.setState({ Cryptovalue: e.target.value });
+        this.convertHandler(e)
       }
     }
   };
